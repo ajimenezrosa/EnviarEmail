@@ -37,7 +37,13 @@ function iniciarApp() {
 function validarFormulario(e) {
     // console.log(e.target.value);
     if(e.target.value.length > 0) {
-        console.log('Si hay algo');
+
+        // Elimina los Errores.
+        const  error = document.querySelector('p.error');
+        error.remove();
+     
+        e.target.classList.remove('border' , 'border-red-500');
+        e.target.classList.add('border' , 'border-green-500');
     } else {
         // e.target.style.borderBottomColor = 'red';
         e.target.classList.add('border' , 'border-red-500');
@@ -46,10 +52,21 @@ function validarFormulario(e) {
     }
     
     if(e.target.type === 'email') {
-        const resultado = e.target.value.indexOf('@');
-        if(resultado < 0) {
-            MostrarError("Este no es un email Valido");
+        const er =/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+
+        if(er.test(e.target.value)) {
+            console.log('este es un falso')
+            e.target.classList.remove('border' , 'border-red-500');
+            e.target.classList.add('border' , 'border-green-500');
+            // MostrarError("Este no es un email Valido");
+        } else {
+            
+            MostrarError("Email no Valido!!");
+            e.target.classList.remove('border' , 'border-green-500');
+            e.target.classList.add('border' , 'border-red-500');
+
         }
+
     }
 
 }
