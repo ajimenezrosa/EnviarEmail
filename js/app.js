@@ -41,16 +41,23 @@ function validarFormulario(e) {
     } else {
         // e.target.style.borderBottomColor = 'red';
         e.target.classList.add('border' , 'border-red-500');
-        MostrarError();
+        MostrarError("Todos los campos son Obligatorios");
+        
     }
-
+    
+    if(e.target.type === 'email') {
+        const resultado = e.target.value.indexOf('@');
+        if(resultado < 0) {
+            MostrarError("Este no es un email Valido");
+        }
+    }
 
 }
 
-function MostrarError() {
+function MostrarError(mensaje) {
     console.log('Mostrar Error.');
     const mensajeError = document.createElement('p');
-    mensajeError.textContent = 'Todos los Campos Son Obligatorios';
+    mensajeError.textContent = mensaje;
     mensajeError.classList.add('border',  'border-red-500', 'background-red-100', 'text-red-500', 'p-3', 'mt-5' , 'text-center','error' );
  
 
