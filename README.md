@@ -29,3 +29,5 @@ function iniciarApp() {
 ~~~javascript
 btnEnviar.classList.add('cursor-not-allowed', 'opacity-50');
 ~~~
+
+# Validar Campos
