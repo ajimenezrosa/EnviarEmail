@@ -1,8 +1,12 @@
+// El spinner lo tomamos de un sitio web llamado https://tobiasahlin.com/spinkit/
+
+
 // Variables
 
 const btnEnviar = document.querySelector('#enviar');
-const formulario = document.querySelector('#enviar-mail');
+const btnReset  = document.querySelector('#resetBtn');
 
+const formulario = document.querySelector('#enviar-mail');
 
 
 // Variables para campos
@@ -20,6 +24,13 @@ function removeEventListener() {
     email.addEventListener('blur' , validarFormulario);
     asunto.addEventListener('blur' , validarFormulario);
     mensaje.addEventListener('blur' , validarFormulario);
+
+    // Resetear Formulario
+    btnReset.addEventListener('click', resetearFormulario);
+
+    //Enviar Email
+    formulario.addEventListener('submit' , enviarEmail);
+
 }
 
 
@@ -104,4 +115,55 @@ function MostrarError(mensaje) {
     }
         
 
+}
+
+
+// envia el email
+function enviarEmail(e) {
+    e.preventDefault();
+
+    // Mostrar el Spinner
+    const spinner = document.querySelector('#spinner');
+    spinner.style.display = 'flex';
+
+    // Despues de tres segundos ocultar el spinner y mostrar el mensaje
+    // Una forma es setTimeout
+    // este se ejecutara tres segundos despues y terminara, 
+    // ojo los 3 segundos es porque pusimos 3000 , cada mil es un segundo
+    const parrafo = document.createElement('p');
+    setTimeout( () => {
+            spinner.style.display = 'none';
+            // mensaje que dice que se envio correctamente
+            parrafo.textContent = 'El mensaje se envio correctamente';
+            parrafo.classList.add('text-center', 'my-10', 'p-2', 'bg-green-500' , 'text-white', 'font-bold', 'uppercase')
+            
+            // inserta el parrafo antes del spinner
+            formulario.insertBefore(parrafo , spinner);
+
+    } ,3000);
+
+
+    setTimeout( () => {
+        parrafo.remove();
+        resetearFormulario();
+    },5000)
+    
+    
+    // otra forma es setInterval 
+    // esta se ejecutara cada 6 segundos
+    // setInterval( () => {
+    //     console.log('Esta funcion se ejecuta despues de 6 segundos.');
+
+    // }, 6000)
+
+}
+
+
+
+
+// funcion que resetea el formulario
+
+function resetearFormulario() {
+    formulario.reset();
+    iniciarApp();
 }
