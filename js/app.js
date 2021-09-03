@@ -27,7 +27,6 @@ function removeEventListener() {
 // Funciones
 
 function iniciarApp() {
-    console.log('Iniciando')
     btnEnviar.disabled = true;
     btnEnviar.classList.add('cursor-not-allowed', 'opacity-50');
 
@@ -40,7 +39,9 @@ function validarFormulario(e) {
 
         // Elimina los Errores.
         const  error = document.querySelector('p.error');
-        error.remove();
+        if(error){
+            error.remove();
+        }
      
         e.target.classList.remove('border' , 'border-red-500');
         e.target.classList.add('border' , 'border-green-500');
@@ -67,9 +68,26 @@ function validarFormulario(e) {
 
         }
 
+        
+
+    }
+
+    const er1 =/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    if(er1.test(email.value) && asunto.value !== '' && mensaje.value !== ''){
+        btnEnviar.disabled = false;
+        btnEnviar.classList.remove('cursor-not-allowed', 'opacity-50');
+        console.log('Pasaste la validacion');
+    } else {
+        btnEnviar.disabled = true;
+        btnEnviar.classList.add('cursor-not-allowed', 'opacity-50');
+
     }
 
 }
+
+
+
+
 
 function MostrarError(mensaje) {
     console.log('Mostrar Error.');
